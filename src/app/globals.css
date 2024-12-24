@@ -21,14 +21,16 @@ body {
     margin: 0;
     direction: rtl;
     background: var(--dark-color);
+    font-family: iranyekan  !important;
 }
 
 * {
     box-sizing: border-box;
+    font-family: iranyekan  !important;
 }
 
 .c-container{
-    max-width: 1366px;
+    max-width: 1400px;
     margin-inline: auto;
 }
 .bg-base-color{
@@ -42,4 +44,13 @@ body {
 }
 .text-base-color-two{
     color: var(--base-color-two);
+}
+
+@font-face {
+    font-family: iranyekan;
+    font-style: normal;
+    font-weight: 500;
+    src: url('../app/assets/IRANYekan/Farsi_numerals/WebFonts/fonts/eot/iranyekanwebmediumfanum.eot'); /* EOT format */
+    src: url('../app/assets/IRANYekan/Farsi_numerals/WebFonts/fonts/woff/iranyekanwebmediumfanum.woff') format('woff'), /* WOFF format */
+    url('../app/assets/IRANYekan/Farsi_numerals/WebFonts/fonts/ttf/iranyekanwebmediumfanum.ttf') format('truetype'); /* TTF format */
 }
