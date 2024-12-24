@@ -26,3 +26,20 @@ body {
 * {
     box-sizing: border-box;
 }
+
+.c-container{
+    max-width: 1366px;
+    margin-inline: auto;
+}
+.bg-base-color{
+    background: var(--base-color);
+}
+.text-base-color{
+    color: var(--base-color);
+}
+.bg-base-color-two{
+    background: var(--base-color-two);
+}
+.text-base-color-two{
+    color: var(--base-color-two);
+}
