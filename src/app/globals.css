@@ -45,7 +45,12 @@ body {
 .text-base-color-two{
     color: var(--base-color-two);
 }
-
+.bg-dark{
+    background: var(--dark-color);
+}
+.text-gray-c{
+    color: #ffffffb3;
+}
 @font-face {
     font-family: iranyekan;
     font-style: normal;
