@@ -10,7 +10,7 @@ const Footer = () => {
             </div>
             <footer className="bg-base-color-two text-white py-4">
                 <div className="container mx-auto flex justify-around mt-20 mb-20">
-                    <div className="div1 w-1/4 flex flex-col">
+                    <div className="div1 w-1/4 flex flex-col mr-[30px]">
                         <div className="head">درباره لایتو</div>
                         <div className="bottom pt-3 text-[14px]">برای تغییر این متن بر روی دکمه ویرایش کلیک کنید. لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</div>
                     </div>
