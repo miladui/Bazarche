@@ -2,6 +2,9 @@ import type {Metadata} from "next";
 import "./globals.css";
 import Header from "./../components/header";
 import Footer from "@/components/footer";
+import { DataProvider } from '@/services/dataProvider';
+import {Component} from "react";
+
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -9,15 +12,17 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
+     children,
+ }: Readonly<{
     children: React.ReactNode;
-}>) {
+}>, pageProps) {
     return (
         <html lang="en">
         <body>
         <Header/>
-        {children}
+        <DataProvider>
+            {children}
+        </DataProvider>
         <Footer/>
         </body>
         </html>
