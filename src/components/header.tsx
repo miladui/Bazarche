@@ -44,7 +44,8 @@ const Header = () => {
                         </div>
                         <div style={{ position: 'relative' }}
                             onMouseEnter={() => setShowLogin(true)}
-                            onMouseLeave={() => setShowLogin(false)}>
+                            onMouseLeave={() => setShowLogin(false)}
+                            >
                             <a
                                 href=""
                                 title='حساب کاربری من'
