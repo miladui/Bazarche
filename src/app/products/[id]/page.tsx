@@ -1,19 +1,30 @@
 'use client'
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useData} from "@/services/dataProvider";
 import {useRouter} from "next/navigation";
 import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css/effect-creative';
+
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
-
 import {FreeMode, Navigation, Thumbs, EffectCreative} from 'swiper/modules';
 import Image from "next/image";
+import {CounterContext} from "@/services/dataCart";
+import {isCart} from "@/helpers/helper";
 
+
+const removeCart = (state, id) => {
+    const index = state.selectedItems.findIndex(item => item.id === id)
+    if (index === -1) {
+        return false
+    } else {
+        return state.selectedItems[index].quantity
+    }
+}
 
 const ProductDetail = ({params}) => {
     const router = useRouter();
@@ -36,6 +47,11 @@ const ProductDetail = ({params}) => {
     }, [dataState]);
     // if (!dataItem) return <div>Loading...</div>;
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
+    const {state, dispatch} = useContext(CounterContext) || {
+        state: {}, dispatch: () => {
+        }
+    };
+
     return (
         <div>
             <section className="s-product-info mt-[2rem]">
@@ -142,11 +158,30 @@ const ProductDetail = ({params}) => {
                             </div>
                             <div className="row-buttons flex items-center justify-between mt-[1rem]">
                                 <div className="count flex items-center">
-                                    <button className="btn-increase">+</button>
-                                    <input value="1" type="text"/>
-                                    <button className="btn-decrease">-</button>
+                                    <button onClick={() => dispatch({type: "increase", payload: info?.id})}
+                                            className="btn-increase">+
+                                    </button>
+                                    <input onChange={(e) => e.target.value} value={state.itemCounter} type="text"/>
+                                    {
+                                        removeCart(state, info?.id) ?
+
+                                            <button onClick={() => dispatch({type: "decrease", payload: info?.id})}
+                                                    className="btn-decrease">-</button>
+                                            :
+                                            <button onClick={() => dispatch({type: "remove_item", payload: info?.id})}
+                                                    className="btn-decrease">t</button>
+
+                                    }
                                 </div>
-                                <button className="btn-base w-[74%]">افزودن به سبد خرید</button>
+                                <button onClick={() => {
+                                    if (info) {
+                                        dispatch({type: "add_item", payload: info});
+                                    } else {
+                                        console.error("Product info is not available");
+                                    }
+                                }}
+                                        className="btn-base w-[74%]">افزودن به سبد خرید
+                                </button>
                             </div>
                             <div
                                 className="row-favorite w-full h-[60px] mt-4 border-t-[1px]  border-b-[1px] flex items-center justify-start  border-[#ffffff20]">

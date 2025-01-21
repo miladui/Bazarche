@@ -4,6 +4,7 @@ import Header from "./../components/header";
 import Footer from "@/components/footer";
 import { DataProvider } from '@/services/dataProvider';
 import {Component} from "react";
+import DataCart from "@/services/dataCart";
 
 
 export const metadata: Metadata = {
@@ -19,11 +20,13 @@ export default function RootLayout({
     return (
         <html lang="en">
         <body>
-        <Header/>
         <DataProvider>
-            {children}
+            <DataCart>
+                <Header/>
+                {children}
+                <Footer/>
+            </DataCart>
         </DataProvider>
-        <Footer/>
         </body>
         </html>
     );

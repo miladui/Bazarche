@@ -1,11 +1,12 @@
 "use client";
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import Image from 'next/image';
 import {useData} from "@/services/dataProvider";
 import Link from "next/link";
+import {CounterContext} from "@/services/dataCart";
 
 const ThumbnailProduct = ({dataItem}) => {
-
+    const {state, dispatch} = useContext(CounterContext) || {state: {}, dispatch: () => {}};
     return (
         <div>
             <div className="thumbnail-product cursor-pointer mt-[8px] flex flex-col bg-base-color-two p-[1.2rem] h-[440px] rounded-b-[10px] rounded-t-[200px]">
