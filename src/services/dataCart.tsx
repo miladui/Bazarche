@@ -3,7 +3,7 @@ import React, {useReducer , createContext} from 'react';
 
 
 
-const initialState = {
+const initialState = JSON.parse(localStorage.getItem('cartState')) || {
     selectedItems: [],
     itemCounter: 0,
     total: 0,
@@ -25,18 +25,40 @@ const cartF = (state, action) => {
                     quantity: 1,
                 })
             }
+            localStorage.setItem('cartState', JSON.stringify({
+                ...state, selectedItems: [...state.selectedItems],
+                ...sumItems(state.selectedItems)
+            }));
             return {
                 ...state, selectedItems: [...state.selectedItems],
                 ...sumItems(state.selectedItems)
             }
         case "remove_item" :
             const newSelectedItem = state.selectedItems.filter(item => item.id !== action.payload.id)
+            localStorage.setItem('cartState', JSON.stringify({
+                ...state,
+                selectedItems: [...newSelectedItem],
+                ...sumItems(newSelectedItem)
+            }));
             return {
                 ...state,
                 selectedItems: [...newSelectedItem],
-                ...sumItems(...newSelectedItem)
+                ...sumItems(newSelectedItem)
             }
         case "increase":
+            localStorage.setItem('cartState', JSON.stringify({
+                ...state,
+                selectedItems: state.selectedItems.map(item =>
+                    item.id === action.payload
+                        ? { ...item, quantity: item.quantity + 1 }
+                        : item
+                ),
+                ...sumItems(state.selectedItems.map(item =>
+                    item.id === action.payload
+                        ? { ...item, quantity: item.quantity + 1 }
+                        : item
+                ))
+            }));
             return {
                 ...state,
                 selectedItems: state.selectedItems.map(item =>
@@ -51,6 +73,19 @@ const cartF = (state, action) => {
                 ))
             }
         case "decrease":
+            localStorage.setItem('cartState', JSON.stringify({
+                ...state,
+                selectedItems: state.selectedItems.map(item =>
+                    item.id === action.payload
+                        ? { ...item, quantity: item.quantity - 1 }
+                        : item
+                ),
+                ...sumItems(state.selectedItems.map(item =>
+                    item.id === action.payload
+                        ? { ...item, quantity: item.quantity - 1 }
+                        : item
+                ))
+            }));
             return {
                 ...state,
                 selectedItems: state.selectedItems.map(item =>
@@ -65,6 +100,7 @@ const cartF = (state, action) => {
                 ))
             }
         case "checkout":
+            localStorage.removeItem('cartState');
             return {
                 selectedItems: [],
                 itemCounter: 0,
@@ -72,6 +108,7 @@ const cartF = (state, action) => {
                 checkOut: true,
             }
         case "clear":
+            localStorage.removeItem('cartState');
             return {
                 selectedItems: [],
                 itemCounter: 0,

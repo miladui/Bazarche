@@ -3,12 +3,14 @@ const isCart = (state, id) => {
     return result
 }
 
-const removeCart =(state , id) =>{
+const removeCart = (state, id) => {
     const index = state.selectedItems.findIndex(item => item.id === id)
-    if (index === -1){
+    if (index === -1) {
         return false
-    }else {
+    } else {
         return state.selectedItems[index].quantity
     }
 }
-export {isCart , removeCart}
+
+
+export {isCart, removeCart}

@@ -178,3 +178,14 @@ body {
         color: white;
     }
 }
+
+.s-cart{
+    .title-product-cart{
+        grid-template-columns: 2.3fr 1fr 1fr 1.3fr;
+        place-items: center;
+    }
+    .item-cart{
+        grid-template-columns: 2.3fr 1fr 1fr 1.3fr;
+        place-items: center;
+    }
+}

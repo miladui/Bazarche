@@ -4,6 +4,7 @@ import Image from 'next/image';
 import {useData} from "@/services/dataProvider";
 import Link from "next/link";
 import {CounterContext} from "@/services/dataCart";
+import {titleCut} from "@/helpers/helper";
 
 const ThumbnailProduct = ({dataItem}) => {
     const {state, dispatch} = useContext(CounterContext) || {state: {}, dispatch: () => {}};
@@ -26,7 +27,9 @@ const ThumbnailProduct = ({dataItem}) => {
                 </div>
                 <h3 className="w-full  flex items-center mt-[9px]">
                     <Link  className="w-full text-[14px] text-white" href={`/products/${dataItem.id}`}>
-                        {dataItem.title}
+                        {
+                          dataItem.title.substring(0 , 40)
+                        }
                     </Link>
                 </h3>
                 <div className="category w-full flex justify-start mt-1">
