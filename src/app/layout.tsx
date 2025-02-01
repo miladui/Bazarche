@@ -15,7 +15,7 @@ export default function RootLayout({
      children,
  }: Readonly<{
     children: React.ReactNode;
-}>, pageProps) {
+}>, pageProps:any) {
     return (
         <html lang="en">
         <body>

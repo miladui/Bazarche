@@ -27,7 +27,10 @@ const initialDataState: DataType = {
 // 4. ایجاد context
 const DataContext = createContext<DataContextType>({
     dataState: initialDataState,
-    fetchData: async () => {},
+    fetchData: async () => { },
+    setDataState: function (data: DataType): void {
+        throw new Error('Function not implemented.');
+    }
 });
 
 

@@ -7,6 +7,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import {useData} from "@/services/dataProvider";
+import Loading from '@/components/loading';
 
 function valuetext(value: number) {
     return `${value}°C`;
@@ -15,12 +16,44 @@ function valuetext(value: number) {
 const Page = () => {
     const {dataState, fetchData, setDataState} = useData();
     const [searchTerm, setSearchTerm] = useState("");
+    const [selectedValue, setSelectedValue] = useState('');
+    // const [defaultValue, setDefaultValue] = useState(null)
 
 
+    function x() {  
+        const defaultData = [...(dataState.data || [])];  
+        setDataState({ ...dataState, data: defaultData });  
+        console.log('defaultData', defaultData);  
+    } 
     useEffect(() => {
-        fetchData();
-
+        fetchData(); 
+       x();
     }, []);
+
+    function defaultValue() {
+        x();
+    }
+    
+
+    const handleChange = (e: any) => {  
+        const value = e.target.value;  
+        setSelectedValue(value);  
+
+       
+        switch (value) {
+            case 'defaultVal':
+                defaultValue();
+            break;
+            case 'cheap':  
+                priceS();  
+                break;  
+            case 'expensive':  
+                priceB();  
+                break;  
+            default:   
+                break;  
+        }  
+    };
 
 
     if (dataState.error) {
@@ -28,22 +61,19 @@ const Page = () => {
     }
 
     if (dataState.loading) {
-        return <p>Loading...</p>;
+        return <Loading />
     }
-
-
-
+   
     function priceS() {
         const sortedProducts = [...dataState.data].sort((a, b) => a.price - b.price);
         setDataState({...dataState, data: sortedProducts});
     }
-
     function priceB() {
         const sortedProducts = [...dataState.data].sort((a, b) => b.price - a.price);
         setDataState({...dataState, data: sortedProducts});
     }
     const filteredProducts = searchTerm
-        ? dataState.data.filter(item => item.title.toLowerCase().includes(searchTerm.toLowerCase())) // {{ edit_2 }}
+        ? dataState.data.filter((item: any) => item.title.toLowerCase().includes(searchTerm.toLowerCase())) // {{ edit_2 }}
         : dataState.data;
     return (
         <div>
@@ -124,17 +154,26 @@ const Page = () => {
                                     {/*    <option value="">مرتب‌سازی بر اساس ارزانترین</option>*/}
                                     {/*    <option value="">مرتب‌سازی بر اساس گرانترین</option>*/}
                                     {/*</select>*/}
-                                    <button onClick={() => priceS()} className="text-white text-[16px]">ارزانترین
+                                      <select className="bg-dark text-white text-[13px] pb-2 border-b-gray-500 border-b-2"
+                                            name="" id="" onChange={handleChange} value={selectedValue}>
+                                        <option selected value="">مرتب سازی پیش فرض</option>
+                                        <option value="">مرتب‌سازی بر اساس محبوبیت</option>
+                                        <option value="">مرتب‌سازی بر اساس امتیاز</option>
+                                        <option value="defaultVal">مرتب‌سازی بر اساس جدیدترین</option>
+                                        <option value="cheap">مرتب‌سازی بر اساس ارزانترین</option>
+                                        <option value="expensive">مرتب‌سازی بر اساس گرانترین</option>
+                                    </select>
+                                    {/* <button onClick={() => priceS()} className="text-white text-[16px]">ارزانترین
                                     </button>
                                     <button onClick={() => priceB()} className="text-white text-[16px]">گرانترین
-                                    </button>
+                                    </button> */}
 
                                 </div>
 
                             </div>
                             <div className="bottom-row mt-[1.5rem] w-full grid grid-cols-3 gap-[1rem]">
                                 {filteredProducts && filteredProducts.length > 0 ? ( // {{ edit_3 }}
-                                    filteredProducts.map(item => <ThumbnailProduct key={item.id} dataItem={item}/>)
+                                    filteredProducts.map((item: any) => <ThumbnailProduct key={item.id} dataItem={item}/>)
                                 ) : (
                                     <h1 className="text-white text-[40px]">محصولی یافت نشد</h1> // {{ edit_4 }}
                                 )}

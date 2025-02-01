@@ -3,14 +3,14 @@ import React, {useEffect} from 'react';
 import Image from 'next/image';
 import {useData} from "@/services/dataProvider";
 
-const ThumbnailProduct = ({dataItem}) => {
+const ThumbnailProduct = ({ dataItem }: { dataItem: any }) => {
 
     return (
         <div>
             <div
                 className="thumbnail-product cursor-pointer mt-[8px] flex flex-col bg-base-color-two p-[1.2rem] h-[440px] rounded-b-[10px] rounded-t-[200px]">
                 <div className="img relative flex justify-center">
-                    <img src={dataItem.category.image}  width={100} height={300} className="w-full rounded-t-[200px] rounded-b-[10px]" alt=""/>
+                    <img src={dataItem.category?.image}  width={100} height={300} className="w-full rounded-t-[200px] rounded-b-[10px]" alt=""/>
                     <div
                         className="discount absolute left-[10px] text-[11px] bottom-[10px] rounded-[15px] flex items-center h-[24px] px-[13px] text-white bg-base-color">
                         22%-
