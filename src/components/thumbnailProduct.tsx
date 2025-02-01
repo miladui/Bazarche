@@ -1,14 +1,15 @@
 "use client";
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import Image from 'next/image';
 import {useData} from "@/services/dataProvider";
+import Link from "next/link";
+import {CounterContext} from "@/services/dataCart";
 
 const ThumbnailProduct = ({ dataItem }: { dataItem: any }) => {
-
+    const {state, dispatch} = useContext(CounterContext) || {state: {}, dispatch: () => {}};
     return (
         <div>
-            <div
-                className="thumbnail-product cursor-pointer mt-[8px] flex flex-col bg-base-color-two p-[1.2rem] h-[440px] rounded-b-[10px] rounded-t-[200px]">
+            <div className="thumbnail-product cursor-pointer mt-[8px] flex flex-col bg-base-color-two p-[1.2rem] h-[440px] rounded-b-[10px] rounded-t-[200px]">
                 <div className="img relative flex justify-center">
                     <img src={dataItem.category?.image}  width={100} height={300} className="w-full rounded-t-[200px] rounded-b-[10px]" alt=""/>
                     <div
@@ -24,7 +25,11 @@ const ThumbnailProduct = ({ dataItem }: { dataItem: any }) => {
 
                 </div>
                 <h3 className="w-full  flex items-center mt-[9px]">
-                    <a className="w-full text-[14px] text-white" href="">{dataItem.title}</a>
+                    <Link  className="w-full text-[14px] text-white" href={`/products/${dataItem.id}`}>
+                        {
+                          dataItem.title.substring(0 , 40)
+                        }
+                    </Link>
                 </h3>
                 <div className="category w-full flex justify-start mt-1">
                     <span className="text-gray-c text-[13px]">چراغ سقفی</span>
